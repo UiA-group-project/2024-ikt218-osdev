@@ -3,3 +3,5 @@
 int putchar(int ic);
 bool print(const char* data, size_t length);
 int printf(const char* __restrict__ format, ...);
+
+void write_string(int colour, const char *string);

@@ -7,6 +7,7 @@
 #include "libc/stdio.h"
 #include "libc/string.h"
 #include "libc/gdt.h"
+#include "libc/idt.h"
 
 struct multiboot_info {
     uint32_t size;
@@ -15,16 +16,7 @@ struct multiboot_info {
 };
 
 
-//basic printfunction 
-    void write_string(int colour, const char *string) 
-    {
-        volatile char *video = (volatile char*)0xb8000;
-        while(*string != 0) {
-            *video++ = *string++;
-            *video++ = colour;
-        }
 
-    }
 
 int kernel_main();
 
@@ -45,6 +37,12 @@ int main(uint32_t magic, struct multiboot_info* mb_info_addr) {
     int colour = 0x0F; // White text, black background
     write_string(colour, hello_world);    
     
+    // Initialize the IDT
+    init_descriptor_tables();
+
+    // Test the interrupts
+    asm volatile ("int $0x3");
+    asm volatile ("int $0x4"); 
 
     return kernel_main();
     }    
