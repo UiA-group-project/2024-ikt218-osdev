@@ -67,6 +67,8 @@ add_executable(uiaos-kernel
 	src/idt.asm
 	src/isr.c
 	src/isr.asm
+	src/common.c
+	src/monitor.c
 	src/print.c
 )
 
