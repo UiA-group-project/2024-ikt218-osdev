@@ -82,39 +82,39 @@ isr_common_stub:
    sti
    iret                     ; Returns from the interrupt
 
-[GLOBAL IRQ0]
+[GLOBAL irq0]
 irq0:
   cli
   push byte 0
-  push byte 0
+  push byte 32
   jmp irq_common_stub
   
-[GLOBAL IRQ1]
+[GLOBAL irq1]
 irq1:
   cli
-  push byte 1
-  push byte 1
+  push byte 0
+  push byte 33
   jmp irq_common_stub
 
 [GLOBAL IRQ2]
 irq2:
   cli
-  push byte 2
-  push byte 2
+  push byte 0
+  push byte 34
   jmp irq_common_stub
 
 [GLOBAL IRQ3]
 irq3:
   cli
-  push byte 3
-  push byte 3
+  push byte 0
+  push byte 35
   jmp irq_common_stub
   
 [GLOBAL IRQ4]
 irq4:
   cli
-  push byte 4
-  push byte 4
+  push byte 0
+  push byte 36
   jmp irq_common_stub
 
 irq_common_stub:
@@ -141,4 +141,3 @@ irq_common_stub:
    add esp, 8     ; Cleans up the pushed error code and pushed ISR number
    sti
    iret           ; pops 5 things at once: CS, EIP, EFLAGS, SS, and ESP
-

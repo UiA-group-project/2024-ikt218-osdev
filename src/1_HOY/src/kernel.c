@@ -11,6 +11,7 @@
 #include "libc/isr.h"
 #include "libc/monitor.h"
 #include "libc/common.h"
+#include "libc/keyboard.h"
 
 struct multiboot_info {
     uint32_t size;
@@ -45,8 +46,17 @@ int main(uint32_t magic, struct multiboot_info* mb_info_addr) {
     init_descriptor_tables();
 
     // Test the interrupts
-    asm volatile ("int $0x3");
-    asm volatile ("int $0x0");
+    //asm volatile ("int $0x3");
+    //asm volatile ("int $0x0");
+
+
+    init_keyboard();
+
+
+    while(1)
+    {
+
+    }
 
     return kernel_main();
     }    

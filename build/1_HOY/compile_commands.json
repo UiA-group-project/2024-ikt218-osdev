@@ -58,5 +58,10 @@
   "directory": "/workspaces/assignment3/build/1_HOY",
   "command": "/usr/local/bin/i686-elf-gcc -I/workspaces/assignment3/src/1_HOY/include -g -Wall -Wextra -nostdinc -nostdlib -fno-builtin -fno-stack-protector -fno-stack-check -fno-lto -fPIE -m32 -march=i386 -mno-mmx -mno-sse -mno-sse2 -mno-red-zone -Wno-main -g -Wno-unused-variable -Wno-unused-parameter -std=gnu99 -o CMakeFiles/uiaos-kernel.dir/src/print.c.o -c /workspaces/assignment3/src/1_HOY/src/print.c",
   "file": "/workspaces/assignment3/src/1_HOY/src/print.c"
+},
+{
+  "directory": "/workspaces/assignment3/build/1_HOY",
+  "command": "/usr/local/bin/i686-elf-gcc -I/workspaces/assignment3/src/1_HOY/include -g -Wall -Wextra -nostdinc -nostdlib -fno-builtin -fno-stack-protector -fno-stack-check -fno-lto -fPIE -m32 -march=i386 -mno-mmx -mno-sse -mno-sse2 -mno-red-zone -Wno-main -g -Wno-unused-variable -Wno-unused-parameter -std=gnu99 -o CMakeFiles/uiaos-kernel.dir/src/keyboard.c.o -c /workspaces/assignment3/src/1_HOY/src/keyboard.c",
+  "file": "/workspaces/assignment3/src/1_HOY/src/keyboard.c"
 }
 ]

@@ -15,6 +15,8 @@ extern void isr1();
 extern void isr2();
 extern void isr3();
 extern void isr4();
+extern void irq0();
+extern void irq1();
 
 static void init_idt();
 static void idt_set_gate(uint8_t,uint32_t,uint16_t,uint8_t);
@@ -47,12 +49,13 @@ static void init_idt()
    outb(0x21, 0x0);
    outb(0xA1, 0x0); 
 
-
    idt_set_gate( 0, (uint32_t)isr0 , 0x08, 0x8E);
    idt_set_gate( 1, (uint32_t)isr1 , 0x08, 0x8E);
    idt_set_gate( 2, (uint32_t)isr2 , 0x08, 0x8E);
    idt_set_gate( 3, (uint32_t)isr3 , 0x08, 0x8E);
    idt_set_gate( 4, (uint32_t)isr4 , 0x08, 0x8E);
+   idt_set_gate(32, (uint32_t)irq0, 0x08, 0x8E); 
+   idt_set_gate(33, (uint32_t)irq1, 0x08, 0x8E);
    
    idt_flush((uint32_t)&idt_ptr);
 }

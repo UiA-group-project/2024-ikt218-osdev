@@ -70,6 +70,7 @@ add_executable(uiaos-kernel
 	src/common.c
 	src/monitor.c
 	src/print.c
+	src/keyboard.c
 )
 
 # Include directories for the kernel target

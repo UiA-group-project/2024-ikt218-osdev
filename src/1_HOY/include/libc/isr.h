@@ -1,4 +1,8 @@
 #include <libc/stdint.h>
+
+#ifndef ISR_H
+#define ISR_H
+
 typedef struct registers
 {
    uint32_t ds;                  // Data segment selector
@@ -10,5 +14,4 @@ typedef struct registers
 typedef void (*isr_t)(registers_t);
 void register_interrupt_handler(uint8_t n, isr_t handler);
 
-
-
+#endif // ISR_H

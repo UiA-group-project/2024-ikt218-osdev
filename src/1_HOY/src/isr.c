@@ -14,7 +14,6 @@
 #define NUM_HANDLERS 256
 isr_t interrupt_handlers[NUM_HANDLERS];
 
-
 void isr_handler_0() {
     monitor_write("Received interrupt: 0");
     monitor_put('\n');
