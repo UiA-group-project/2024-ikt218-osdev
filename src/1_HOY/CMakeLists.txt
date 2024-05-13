@@ -71,6 +71,9 @@ add_executable(uiaos-kernel
 	src/monitor.c
 	src/print.c
 	src/keyboard.c
+	src/malloc.c
+	src/memutils.c
+	src/memory.c
 )
 
 # Include directories for the kernel target
