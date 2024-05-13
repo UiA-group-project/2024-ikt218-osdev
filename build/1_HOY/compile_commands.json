@@ -63,20 +63,5 @@
   "directory": "/workspaces/assignment3/build/1_HOY",
   "command": "/usr/local/bin/i686-elf-gcc -I/workspaces/assignment3/src/1_HOY/include -g -Wall -Wextra -nostdinc -nostdlib -fno-builtin -fno-stack-protector -fno-stack-check -fno-lto -fPIE -m32 -march=i386 -mno-mmx -mno-sse -mno-sse2 -mno-red-zone -Wno-main -g -Wno-unused-variable -Wno-unused-parameter -std=gnu99 -o CMakeFiles/uiaos-kernel.dir/src/keyboard.c.o -c /workspaces/assignment3/src/1_HOY/src/keyboard.c",
   "file": "/workspaces/assignment3/src/1_HOY/src/keyboard.c"
-},
-{
-  "directory": "/workspaces/assignment3/build/1_HOY",
-  "command": "/usr/local/bin/i686-elf-gcc -I/workspaces/assignment3/src/1_HOY/include -g -Wall -Wextra -nostdinc -nostdlib -fno-builtin -fno-stack-protector -fno-stack-check -fno-lto -fPIE -m32 -march=i386 -mno-mmx -mno-sse -mno-sse2 -mno-red-zone -Wno-main -g -Wno-unused-variable -Wno-unused-parameter -std=gnu99 -o CMakeFiles/uiaos-kernel.dir/src/malloc.c.o -c /workspaces/assignment3/src/1_HOY/src/malloc.c",
-  "file": "/workspaces/assignment3/src/1_HOY/src/malloc.c"
-},
-{
-  "directory": "/workspaces/assignment3/build/1_HOY",
-  "command": "/usr/local/bin/i686-elf-gcc -I/workspaces/assignment3/src/1_HOY/include -g -Wall -Wextra -nostdinc -nostdlib -fno-builtin -fno-stack-protector -fno-stack-check -fno-lto -fPIE -m32 -march=i386 -mno-mmx -mno-sse -mno-sse2 -mno-red-zone -Wno-main -g -Wno-unused-variable -Wno-unused-parameter -std=gnu99 -o CMakeFiles/uiaos-kernel.dir/src/memutils.c.o -c /workspaces/assignment3/src/1_HOY/src/memutils.c",
-  "file": "/workspaces/assignment3/src/1_HOY/src/memutils.c"
-},
-{
-  "directory": "/workspaces/assignment3/build/1_HOY",
-  "command": "/usr/local/bin/i686-elf-gcc -I/workspaces/assignment3/src/1_HOY/include -g -Wall -Wextra -nostdinc -nostdlib -fno-builtin -fno-stack-protector -fno-stack-check -fno-lto -fPIE -m32 -march=i386 -mno-mmx -mno-sse -mno-sse2 -mno-red-zone -Wno-main -g -Wno-unused-variable -Wno-unused-parameter -std=gnu99 -o CMakeFiles/uiaos-kernel.dir/src/memory.c.o -c /workspaces/assignment3/src/1_HOY/src/memory.c",
-  "file": "/workspaces/assignment3/src/1_HOY/src/memory.c"
 }
 ]

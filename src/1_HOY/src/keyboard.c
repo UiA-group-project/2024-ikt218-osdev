@@ -19,8 +19,7 @@ char scan_code_chars_lower[128] = {
     '\\', 'z', 'x', 'c', 'v', 'b', 'n', 'm', ',', '.', '/', '\0', '*', '\0', ' ',
     '\0', '\0', '\0', '\0', '\0', '\0', '\0', '\0', '\0', '\0', '\0', '\0', '\0',
     '\0', '\0', '\0', '7', '8', '9', '-', '4', '5', '6', '+', '1', '2', '3', '0', '.',
-    '\0', '\0', '\0', '\0', '\0', '\0', '\0', '\0', '\0', '\0', '\0', '\0', '\0', '\0', '\0', '\0'
-};
+    '\0', '\0', '\0', '\0', '\0', '\0', '\0', '\0', '\0', '\0', '\0', '\0', '\0', '\0', '\0', '\0'};
 
 void keyboard_handler(registers_t *regs, void * /* context */)
 {
@@ -35,16 +34,18 @@ void keyboard_handler(registers_t *regs, void * /* context */)
 
             // Check if this is a key press or release
             int key_release = scancode & 0x80;
-            
+
             // Normalize the scancode
             scancode &= ~0x80;
 
             // If this is a key release, ignore it
             if (key_release)
+            {
                 return;
+            }
 
-                monitor_put(scan_code_chars_lower[scancode]);
-                write_string(0x0F, "\n");
+            monitor_put(scan_code_chars_lower[scancode]);
+            write_string(0x0F, "\n");
             break;
         }
     }
@@ -53,7 +54,7 @@ void keyboard_handler(registers_t *regs, void * /* context */)
 void init_keyboard()
 {
     register_interrupt_handler(33, keyboard_handler);
-    
+
     /*
         Enable the IRQ1, then enable the hardware interrupts
         when using only 'asm volatile("int $0x21")' the program reads only one key press

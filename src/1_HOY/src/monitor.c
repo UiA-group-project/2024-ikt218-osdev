@@ -1,6 +1,6 @@
-//function for writing to the screen
-//based on jamesmolloy guide part 3 the screen
-//https://github.com/cirosantilli/jamesmolloy-kernel-development-tutorials/blob/master/3_screen/monitor.c
+// function for writing to the screen
+// based on jamesmolloy guide part 3 the screen
+// https://github.com/cirosantilli/jamesmolloy-kernel-development-tutorials/blob/master/3_screen/monitor.c
 
 #include "libc/monitor.h"
 
@@ -30,19 +30,19 @@ static void scroll()
     u16int blank = 0x20 /* space */ | (attributeByte << 8);
 
     // Row 25 is the end, this means we need to scroll up
-    if(cursor_y >= 25)
+    if (cursor_y >= 25)
     {
         // Move the current text chunk that makes up the screen
         // back in the buffer by a line
         int i;
-        for (i = 0*80; i < 24*80; i++)
+        for (i = 0 * 80; i < 24 * 80; i++)
         {
-            video_memory[i] = video_memory[i+80];
+            video_memory[i] = video_memory[i + 80];
         }
 
         // The last line should now be blank. Do this by writing
         // 80 spaces to it.
-        for (i = 24*80; i < 25*80; i++)
+        for (i = 24 * 80; i < 25 * 80; i++)
         {
             video_memory[i] = blank;
         }
@@ -58,9 +58,9 @@ void monitor_put(char c)
     u8int backColour = 0;
     u8int foreColour = 15;
 
-    // The attribute byte is made up of two nibbles - the lower being the 
+    // The attribute byte is made up of two nibbles - the lower being the
     // foreground colour, and the upper the background colour.
-    u8int  attributeByte = (backColour << 4) | (foreColour & 0x0F);
+    u8int attributeByte = (backColour << 4) | (foreColour & 0x0F);
     // The attribute byte is the top 8 bits of the word we have to send to the
     // VGA board.
     u16int attribute = attributeByte << 8;
@@ -76,7 +76,7 @@ void monitor_put(char c)
     // where it is divisible by 8.
     else if (c == 0x09)
     {
-        cursor_x = (cursor_x+8) & ~(8-1);
+        cursor_x = (cursor_x + 8) & ~(8 - 1);
     }
 
     // Handle carriage return
@@ -92,9 +92,9 @@ void monitor_put(char c)
         cursor_y++;
     }
     // Handle any other printable character.
-    else if(c >= ' ')
+    else if (c >= ' ')
     {
-        location = video_memory + (cursor_y*80 + cursor_x);
+        location = video_memory + (cursor_y * 80 + cursor_x);
         *location = c | attribute;
         cursor_x++;
     }
@@ -104,14 +104,13 @@ void monitor_put(char c)
     if (cursor_x >= 80)
     {
         cursor_x = 0;
-        cursor_y ++;
+        cursor_y++;
     }
 
     // Scroll the screen if needed.
     scroll();
     // Move the hardware cursor.
     move_cursor();
-
 }
 
 // Clears the screen, by copying lots of spaces to the framebuffer.
@@ -122,7 +121,7 @@ void monitor_clear()
     u16int blank = 0x20 /* space */ | (attributeByte << 8);
 
     int i;
-    for (i = 0; i < 80*25; i++)
+    for (i = 0; i < 80 * 25; i++)
     {
         video_memory[i] = blank;
     }
@@ -141,4 +140,138 @@ void monitor_write(char *c)
     {
         monitor_put(c[i++]);
     }
+}
+
+void monitor_write_hex(u32int n)
+{
+    // Convert the number to hexadecimal string
+    char hex[9];
+    int i = 0;
+    while (n != 0)
+    {
+        int remainder = n % 16;
+        if (remainder < 10)
+        {
+            hex[i] = remainder + '0';
+        }
+        else
+        {
+            hex[i] = remainder - 10 + 'A';
+        }
+        n = n / 16;
+        i++;
+    }
+    hex[i] = '\0';
+
+    // Reverse the hexadecimal string
+    int len = i;
+    char reversed_hex[9];
+    for (i = 0; i < len; i++)
+    {
+        reversed_hex[i] = hex[len - i - 1];
+    }
+    reversed_hex[len] = '\0';
+
+    // Write the hexadecimal string to the monitor
+    monitor_write(reversed_hex);
+}
+
+void monitor_write_dec(u32int n)
+{
+    // Convert the number to decimal string
+    char dec[11];
+    int i = 0;
+    if (n == 0)
+    {
+        dec[i++] = '0';
+    }
+    else
+    {
+        while (n != 0)
+        {
+            int remainder = n % 10;
+            dec[i++] = remainder + '0';
+            n = n / 10;
+        }
+    }
+    dec[i] = '\0';
+    // Reverse the decimal string
+    int len = i;
+    char reversed_dec[11];
+    for (i = 0; i < len; i++)
+    {
+        reversed_dec[i] = dec[len - i - 1];
+    }
+    reversed_dec[len] = '\0';
+    // Write the decimal string to the monitor
+    monitor_write(reversed_dec);
+}
+
+void printf(char *format, ...)
+{
+    // Assuming that arguments are 4 bytes each and are placed on the stack
+    // right to left, and that the stack grows downwards.
+
+    // The address of the format parameter
+    char **p = &format;
+
+    // Move the pointer to the next argument on the stack
+    p++;
+
+    while (*format != '\0')
+    {
+        if (*format == '%')
+        {
+            format++;
+            switch (*format)
+            {
+            // String
+            case 's':
+            {
+                char *str = (char *)*p;
+                monitor_write(str);
+                p++;
+                break;
+            }
+            // Decimal
+            case 'd':
+            {
+                int num = *(int *)p;
+                monitor_write_dec(num);
+                p++;
+                break;
+            }
+            // Hexadecimal
+            case 'x':
+            {
+                int num = *(int *)p;
+                monitor_write_hex(num);
+                p++;
+                break;
+            }
+            }
+        }
+        // Character
+        else
+        {
+            monitor_put(*format);
+        }
+        format++;
+    }
+}
+
+void test_monitor()
+{
+    monitor_clear();
+
+    monitor_write("Testing monitor_write...\n");
+    monitor_write_hex(0x123ABC);
+    monitor_write("\n");
+    monitor_write_dec(1234567890);
+    monitor_write("\n");
+
+    printf("Testing printf with a string: %s\n", "Hello, world!");
+    printf("Testing printf with a decimal number: %d\n", 1234567890);
+    printf("Testing printf with a hexadecimal number: %x\n", 0x123ABC);
+    printf("Testing printf with multiple arguments: %s %d %x\n", "Hello, world!", 1234567890, 0x123ABC);
 }
