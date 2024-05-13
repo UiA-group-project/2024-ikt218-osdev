@@ -13,6 +13,9 @@
 #include "libc/common.h"
 #include "libc/keyboard.h"
 
+//defines memory adress the kernel memory will start at
+extern uint32_t end; // This is defined in arch/i386/linker.ld
+
 struct multiboot_info {
     uint32_t size;
     uint32_t reserved;
@@ -49,14 +52,28 @@ int main(uint32_t magic, struct multiboot_info* mb_info_addr) {
     //asm volatile ("int $0x3");
     //asm volatile ("int $0x0");
 
-
     init_keyboard();
-
 
     while(1)
     {
 
     }
+
+        // Initialize the kernel's memory manager using the end address of the kernel.
+    init_kernel_memory(&end); // <------ THIS IS PART OF THE ASSIGNMENT
+
+    // Initialize paging for memory management.
+    init_paging(); // <------ THIS IS PART OF THE ASSIGNMENT
+
+    // Print memory information.
+    print_memory_layout(); // <------ THIS IS PART OF THE ASSIGNMENT
+
+		// Initialize PIT
+    init_pit(); // <------ THIS IS PART OF THE ASSIGNMENT
+
+    // test assignment 4 code.
+    monitor_write("test assignment 4");
+    monitor_put('\n');
 
     return kernel_main();
     }    
