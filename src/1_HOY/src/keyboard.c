@@ -45,7 +45,7 @@ void keyboard_handler(registers_t *regs, void * /* context */)
             }
 
             monitor_put(scan_code_chars_lower[scancode]);
-            write_string(0x0F, "\n");
+            // TODO: call prontf instead write_string(0x0F, "\n");
             break;
         }
     }
@@ -64,4 +64,3 @@ void init_keyboard()
     asm volatile("int $0x21");
     asm volatile("sti");
 }
-

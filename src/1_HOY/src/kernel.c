@@ -57,16 +57,16 @@ int main(uint32_t magic, struct multiboot_info *mb_info_addr)
     }
 
     // Initialize the kernel's memory manager using the end address of the kernel.
-    init_kernel_memory(&end); // <------ THIS IS PART OF THE ASSIGNMENT
+    // init_kernel_memory(&end); // <------ THIS IS PART OF THE ASSIGNMENT
 
     // Initialize paging for memory management.
-    init_paging(); // <------ THIS IS PART OF THE ASSIGNMENT
+    // init_paging(); // <------ THIS IS PART OF THE ASSIGNMENT
 
     // Print memory information.
-    print_memory_layout(); // <------ THIS IS PART OF THE ASSIGNMENT
+    // print_memory_layout(); // <------ THIS IS PART OF THE ASSIGNMENT
 
     // Initialize PIT
-    init_pit(); // <------ THIS IS PART OF THE ASSIGNMENT
+    // init_pit(); // <------ THIS IS PART OF THE ASSIGNMENT
 
     // test assignment 4 code.
     monitor_write("test assignment 4");

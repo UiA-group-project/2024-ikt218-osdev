@@ -1,5 +1,5 @@
 #include <libc/memory.h>
-//#include <libc/system.h>
+// #include <libc/system.h>
 #include <libc/common.h>
 #include <libc/stdio.h>
 #include <libc/string.h>
@@ -16,7 +16,7 @@ uint8_t *pheap_desc = 0;
 uint32_t memory_used = 0;
 
 // Initialize the kernel memory manager
-void init_kernel_memory(uint32_t* kernel_end)
+void init_kernel_memory(uint32_t *kernel_end)
 {
     last_alloc = kernel_end + 0x1000;
     heap_begin = last_alloc;
@@ -50,7 +50,8 @@ void free(void *mem)
 // Free a block of page-aligned memory
 void pfree(void *mem)
 {
-    if(mem < pheap_begin || mem > pheap_end) return;
+    if (mem < pheap_begin || mem > pheap_end)
+        return;
 
     // Determine the page ID
     uint32_t ad = (uint32_t)mem;
@@ -62,37 +63,39 @@ void pfree(void *mem)
 }
 
 // Allocate a block of page-aligned memory
-char* pmalloc(size_t size)
+char *pmalloc(size_t size)
 {
     // Loop through the available list
-    for(int i = 0; i < MAX_PAGE_ALIGNED_ALLOCS; i++)
+    for (int i = 0; i < MAX_PAGE_ALIGNED_ALLOCS; i++)
     {
-        if(pheap_desc[i]) continue;
+        if (pheap_desc[i])
+            continue;
         pheap_desc[i] = 1;
-        printf("PAllocated from 0x%x to 0x%x\n", pheap_begin + i*4096, pheap_begin + (i+1)*4096);
-        return (char *)(pheap_begin + i*4096);
+        printf("PAllocated from 0x%x to 0x%x\n", pheap_begin + i * 4096, pheap_begin + (i + 1) * 4096);
+        return (char *)(pheap_begin + i * 4096);
     }
     monitor_write("pmalloc: FATAL: failure!");
     monitor_put('\n');
     return 0;
 }
 
-
 // Allocate a block of memory
-void* malloc(size_t size)
+void *malloc(size_t size)
 {
-    if(!size) return 0;
+    if (!size)
+        return 0;
 
     // Loop through blocks to find an available block with enough size
     uint8_t *mem = (uint8_t *)heap_begin;
-    while((uint32_t)mem < last_alloc)
+    while ((uint32_t)mem < last_alloc)
     {
         alloc_t *a = (alloc_t *)mem;
         printf("mem=0x%x a={.status=%d, .size=%d}\n", mem, a->status, a->size);
 
-        if(!a->size)
+        if (!a->size)
             goto nalloc;
-        if(a->status) {
+        if (a->status)
+        {
             mem += a->size;
             mem += sizeof(alloc_t);
             mem += 4;
@@ -100,7 +103,7 @@ void* malloc(size_t size)
         }
         // If the block is not allocated and its size is big enough,
         // adjust its size, set the status, and return the location.
-        if(a->size >= size)
+        if (a->size >= size)
         {
             a->status = 1;
             printf("RE:Allocated %d bytes from 0x%x to 0x%x\n", size, mem + sizeof(alloc_t), mem + sizeof(alloc_t) + size);
@@ -115,10 +118,10 @@ void* malloc(size_t size)
         mem += 4;
     }
 
-    nalloc:;
-    if(last_alloc + size + sizeof(alloc_t) >= heap_end)
+nalloc:;
+    if (last_alloc + size + sizeof(alloc_t) >= heap_end)
     {
-        panic("Cannot allocate bytes! Out of memory.\n");
+        // TODO: panic("Cannot allocate bytes! Out of memory.\n");
     }
     alloc_t *alloc = (alloc_t *)last_alloc;
     alloc->status = 1;
