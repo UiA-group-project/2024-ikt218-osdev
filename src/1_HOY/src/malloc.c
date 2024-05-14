@@ -4,6 +4,7 @@
 #include <libc/stdio.h>
 #include <libc/string.h>
 #include <libc/pit.h>
+#include "./libc/monitor.h"
 
 #define MAX_PAGE_ALIGNED_ALLOCS 32
 
@@ -121,7 +122,7 @@ void *malloc(size_t size)
 nalloc:;
     if (last_alloc + size + sizeof(alloc_t) >= heap_end)
     {
-        // TODO: panic("Cannot allocate bytes! Out of memory.\n");
+        printf("Cannot allocate bytes! Out of memory.\n");
     }
     alloc_t *alloc = (alloc_t *)last_alloc;
     alloc->status = 1;
