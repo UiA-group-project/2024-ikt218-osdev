@@ -12,6 +12,11 @@
 #include "libc/monitor.h"
 #include "libc/common.h"
 #include "libc/keyboard.h"
+#include "libc/malloc.h"
+#include "libc/pit.h"
+#include "libc/memory.h"
+
+extern uint32_t end; // This is defined in arch/i386/linker.ld
 
 struct multiboot_info
 {
@@ -24,53 +29,30 @@ int kernel_main();
 
 int main(uint32_t magic, struct multiboot_info *mb_info_addr)
 {
-
-    // Check the magic number
-    /*if (magic != MULTIBOOT2_BOOTLOADER_MAGIC) {
-        // Magic number is invalid
-        //write_string(0x0F, "Invalid magic number");
-    } else {*/
-
     // Initialize the GDT
     init_gdt();
-
-    // defines the parameters in the print function above and prints "Hello, World!" in white text on a black background
-
-    monitor_clear();
-    test_monitor();
-
-    // const char *hello_world = "Hello, World!";
-    // int colour = 0x0F; // White text, black background
-    // write_string(colour, hello_world);
 
     // Initialize the IDT
     init_descriptor_tables();
 
-    // Test the interrupts
-    // asm volatile ("int $0x3");
-    // asm volatile ("int $0x0");
-
+    // Initialize the ISR
     init_keyboard();
 
-    while (1)
+    // Initialize the memory manager
+    init_kernel_memory(&end);
+
+    // Initialize the paging
+    init_paging();
+
+    // Initialize the PIT
+    init_pit();
+
+    // test
+    print_memory_layout();
+
+    while (true)
     {
-    }
-
-    // Initialize the kernel's memory manager using the end address of the kernel.
-    // init_kernel_memory(&end); // <------ THIS IS PART OF THE ASSIGNMENT
-
-    // Initialize paging for memory management.
-    // init_paging(); // <------ THIS IS PART OF THE ASSIGNMENT
-
-    // Print memory information.
-    // print_memory_layout(); // <------ THIS IS PART OF THE ASSIGNMENT
-
-    // Initialize PIT
-    // init_pit(); // <------ THIS IS PART OF THE ASSIGNMENT
-
-    // test assignment 4 code.
-    monitor_write("test assignment 4");
-    monitor_put('\n');
+    };
 
     return kernel_main();
 }

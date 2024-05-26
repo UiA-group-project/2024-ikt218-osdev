@@ -11,7 +11,7 @@ u8int cursor_x = 0;
 u8int cursor_y = 0;
 
 // Updates the hardware cursor.
-static void move_cursor()
+void move_cursor()
 {
     // The screen is 80 characters wide...
     u16int cursorLocation = cursor_y * 80 + cursor_x;
@@ -22,7 +22,7 @@ static void move_cursor()
 }
 
 // Scrolls the text on the screen up by one line.
-static void scroll()
+void scroll()
 {
 
     // Get a space character with the default colour attributes.

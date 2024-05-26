@@ -6,7 +6,6 @@
 #include "libc/string.h"
 #include "libc/gdt.h"
 #include "libc/idt.h"
-#include "libc/isr.h"
 #include "libc/monitor.h"
 #include "libc/common.h"
 #include "libc/keyboard.h"
@@ -21,7 +20,7 @@ char scan_code_chars_lower[128] = {
     '\0', '\0', '\0', '7', '8', '9', '-', '4', '5', '6', '+', '1', '2', '3', '0', '.',
     '\0', '\0', '\0', '\0', '\0', '\0', '\0', '\0', '\0', '\0', '\0', '\0', '\0', '\0', '\0', '\0'};
 
-void keyboard_handler(registers_t *regs, void * /* context */)
+isr_t keyboard_handler(registers_t *regs, void * /* context */)
 {
     int status;
     int scancode = 0;
@@ -41,7 +40,7 @@ void keyboard_handler(registers_t *regs, void * /* context */)
             // If this is a key release, ignore it
             if (key_release)
             {
-                return;
+                return 0;
             }
 
             monitor_put(scan_code_chars_lower[scancode]);

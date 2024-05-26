@@ -16,6 +16,7 @@
         "memory.h": "c",
         "limits.h": "c",
         "idt.h": "c",
-        "common.h": "c"
+        "common.h": "c",
+        "pit.h": "c"
     }
 }

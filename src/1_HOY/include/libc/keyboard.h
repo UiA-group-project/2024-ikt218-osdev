@@ -9,9 +9,8 @@
 #include "libc/idt.h"
 #include "libc/isr.h"
 
-void keyboard_handler(registers_t *regs, void * /* context */);
+isr_t keyboard_handler(registers_t *regs, void * /* context */);
 
 void init_keyboard();
-
 
 #endif

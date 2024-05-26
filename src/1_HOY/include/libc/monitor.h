@@ -5,10 +5,10 @@
 #include <libc/common.h>
 
 // Updates the hardware cursor.
-static void move_cursor();
+void move_cursor();
 
 // Scrolls the text on the screen up by one line.
-static void scroll();
+void scroll();
 
 // Writes a single character out to the screen.
 void monitor_put(char c);
