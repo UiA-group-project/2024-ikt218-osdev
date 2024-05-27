@@ -1,13 +1,4 @@
-#include "libc/stdint.h"
-#include "libc/stddef.h"
-#include "libc/stdbool.h"
-#include "libc/multiboot2.h"
-#include "libc/stdio.h"
-#include "libc/string.h"
-#include "libc/gdt.h"
-#include "libc/idt.h"
-#include "libc/monitor.h"
-#include "libc/common.h"
+
 #include "libc/keyboard.h"
 
 // Array for non-shifted characters
@@ -20,7 +11,7 @@ char scan_code_chars_lower[128] = {
     '\0', '\0', '\0', '7', '8', '9', '-', '4', '5', '6', '+', '1', '2', '3', '0', '.',
     '\0', '\0', '\0', '\0', '\0', '\0', '\0', '\0', '\0', '\0', '\0', '\0', '\0', '\0', '\0', '\0'};
 
-isr_t keyboard_handler(registers_t *regs, void * /* context */)
+void keyboard_handler(registers_t regs)
 {
     int status;
     int scancode = 0;
@@ -40,11 +31,10 @@ isr_t keyboard_handler(registers_t *regs, void * /* context */)
             // If this is a key release, ignore it
             if (key_release)
             {
-                return 0;
+                continue;
             }
 
             monitor_put(scan_code_chars_lower[scancode]);
-            // TODO: call prontf instead write_string(0x0F, "\n");
             break;
         }
     }
@@ -60,6 +50,6 @@ void init_keyboard()
         when using only 'asm volatile("sti")' the program reads nothing
         when using both the program functions as intended and reading the interrupts as long as the program runs.
     */
-    asm volatile("int $0x21");
+    // asm volatile("int $0x21");
     asm volatile("sti");
 }

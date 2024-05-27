@@ -1,10 +1,4 @@
-// #include <libc/system.h>
-#include <libc/memory.h>
-#include <libc/stdint.h>
-#include <libc/stdio.h>
-#include <libc/string.h>
-#include <libc/pit.h>
-#include <libc/common.h>
+#include "libc/memory.h"
 
 static uint32_t *page_directory = 0; // Define a pointer to the page directory and initialize it to zero
 static uint32_t page_dir_loc = 0;    // Define the location of the page directory and initialize it to zero

@@ -1,14 +1,4 @@
-#include "libc/stdint.h"
-#include "libc/stddef.h"
-#include "libc/stdbool.h"
-#include "libc/multiboot2.h"
-#include "libc/stdio.h"
-#include "libc/string.h"
-#include "libc/gdt.h"
 #include "libc/idt.h"
-#include <libc/string.h>
-#include "libc/isr.h"
-#include "libc/common.h"
 
 extern void idt_flush(uint32_t);
 extern void isr0();

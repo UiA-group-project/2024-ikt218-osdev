@@ -1,9 +1,13 @@
+extern "C"
+{
 #include <libc/stdint.h>
 #include <libc/stddef.h>
 #include <libc/stdbool.h>
 #include <libc/stdio.h>
-#include <libc/string.h>
+#include <libc/malloc.h>
 #include <libc/memory.h>
+#include <libc/monitor.h>
+}
 
 // Existing global operator new overloads
 void *operator new(size_t size)
@@ -43,15 +47,22 @@ void operator delete[](void *ptr, size_t size) noexcept
 extern "C" int kernel_main(void);
 int kernel_main()
 {
+    const char *str = "Hello from kernel_main!\n";
+    printf("%s", str);
 
     // Allocate some memory using the kernel memory manager
     // THIS IS PART OF THE ASSIGNMENT
     void *some_memory = malloc(12345);
     void *memory2 = malloc(54321);
     void *memory3 = malloc(13331);
-    char *memory4 = new char[1000]();
+    const char *memory4 = new char[1000]();
 
     // More code....
+
+    while (true)
+    {
+        /* code */
+    }
 
     return 0;
 }

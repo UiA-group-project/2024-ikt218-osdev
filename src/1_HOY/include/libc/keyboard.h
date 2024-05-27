@@ -6,10 +6,18 @@
 #ifndef KEYBOARD_H
 #define KEYBOARD_H
 
+#include "libc/stdint.h"
+#include "libc/stddef.h"
+#include "libc/stdbool.h"
+#include "libc/multiboot2.h"
+#include "libc/stdio.h"
+#include "libc/string.h"
+#include "libc/gdt.h"
 #include "libc/idt.h"
-#include "libc/isr.h"
+#include "libc/monitor.h"
+#include "libc/common.h"
 
-isr_t keyboard_handler(registers_t *regs, void * /* context */);
+void keyboard_handler(registers_t regs);
 
 void init_keyboard();
 

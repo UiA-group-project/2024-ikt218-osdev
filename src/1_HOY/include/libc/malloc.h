@@ -1,7 +1,12 @@
 #ifndef MALLOC_H
 #define MALLOC_H
 
-#include "stdint.h"
+#include <libc/memory.h>
+#include <libc/common.h>
+#include <libc/stdio.h>
+#include <libc/string.h>
+#include <libc/pit.h>
+#include "./libc/monitor.h"
 
 #define MAX_PAGE_ALIGNED_ALLOCS 32
 

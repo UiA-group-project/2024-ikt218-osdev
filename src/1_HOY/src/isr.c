@@ -1,12 +1,4 @@
-#include "libc/stdint.h"
-#include "libc/stdbool.h"
-#include "libc/stdio.h"
-#include "libc/string.h"
-#include "libc/gdt.h"
-#include "libc/idt.h"
 #include "libc/isr.h"
-#include "libc/monitor.h"
-#include "libc/common.h"
 
 // This gets called from our ASM interrupt handler stub.
 // based on AI code:

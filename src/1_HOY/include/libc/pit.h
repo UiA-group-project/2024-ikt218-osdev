@@ -3,7 +3,11 @@
 
 #include "stdint.h"
 #include "stdbool.h"
-#include "isr.h"
+#include <libc/common.h>
+#include <libc/isr.h>
+#include <libc/stdio.h>
+#include <libc/song.h>
+#include <libc/frequencies.h>
 
 // PIT (Programmable Interval Timer) related macros
 #define PIT_CMD_PORT 0x43

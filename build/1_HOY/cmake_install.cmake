@@ -1,4 +1,4 @@
-# Install script for directory: /workspaces/assignment3/src/1_HOY
+# Install script for directory: /workspaces/2024-ikt218-osdev/src/1_HOY
 
 # Set the install prefix
 if(NOT DEFINED CMAKE_INSTALL_PREFIX)
@@ -50,5 +50,5 @@ endif()
 
 string(REPLACE ";" "\n" CMAKE_INSTALL_MANIFEST_CONTENT
        "${CMAKE_INSTALL_MANIFEST_FILES}")
-file(WRITE "/workspaces/assignment3/build/1_HOY/${CMAKE_INSTALL_MANIFEST}"
+file(WRITE "/workspaces/2024-ikt218-osdev/build/1_HOY/${CMAKE_INSTALL_MANIFEST}"
      "${CMAKE_INSTALL_MANIFEST_CONTENT}")

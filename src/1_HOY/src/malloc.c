@@ -1,12 +1,6 @@
-#include <libc/memory.h>
-// #include <libc/system.h>
-#include <libc/common.h>
-#include <libc/stdio.h>
-#include <libc/string.h>
-#include <libc/pit.h>
-#include "./libc/monitor.h"
-
 #define MAX_PAGE_ALIGNED_ALLOCS 32
+
+#include <libc/malloc.h>
 
 uint32_t last_alloc = 0;
 uint32_t heap_end = 0;

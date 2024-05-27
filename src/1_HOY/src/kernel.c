@@ -1,5 +1,4 @@
 // code is based on examples from the course materials - especially session 6 and copilot.
-
 #include "libc/stdint.h"
 #include "libc/stddef.h"
 #include "libc/stdbool.h"
@@ -18,6 +17,8 @@
 #include "libc/frequencies.h"
 #include "libc/song.h"
 
+extern int kernel_main();
+
 extern uint32_t end; // This is defined in arch/i386/linker.ld
 
 struct multiboot_info
@@ -29,21 +30,9 @@ struct multiboot_info
 
 int kernel_main();
 
-// Declare the play_song function
-void play_song(Song *song);
-void sleep(uint32_t milliseconds); // Declare sleep function
-void stop_sound(); // Declare stop_sound function
-
-void sleep(uint32_t milliseconds) {
-    pit_sleep(milliseconds);
-}
-
 int main(uint32_t magic, struct multiboot_info *mb_info_addr)
 {
-    // Initialize the GDT
-    init_gdt();
-
-    // Initialize the IDT
+    // Initialize the GDT and IDT
     init_descriptor_tables();
 
     // Initialize the memory manager
@@ -52,26 +41,14 @@ int main(uint32_t magic, struct multiboot_info *mb_info_addr)
     // Initialize the paging
     init_paging();
 
-     // Initialize the PIT
+    // Initialize the PIT
     init_pit();
 
-    // test
+    // Print the memory layout
     print_memory_layout();
 
-    // Test the music player
-    Song starwars_song = {starwars_theme, sizeof(starwars_theme) / sizeof(Note)};
-    play_song_impl(&starwars_song);
-    
-    //Delay for 5 seconds
-    sleep(5000);
-    stop_sound();
-
-    //Initialize the ISR
-    //init_keyboard();
-
-    while (true)
-    {
-    };
+    // Initialize the keyboard
+    init_keyboard();
 
     return kernel_main();
 }

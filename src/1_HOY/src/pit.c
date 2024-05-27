@@ -1,9 +1,4 @@
 #include <libc/pit.h>
-#include <libc/common.h>
-#include <libc/isr.h>
-#include <libc/stdio.h>
-#include <libc/song.h>
-#include <libc/frequencies.h>
 
 // Reference: http://www.jamesmolloy.co.uk/tutorial_html/5.-IRQs%20and%20the%20PIT.html
 
@@ -43,7 +38,7 @@ void yield()
     // Simple yield function: halt the CPU until the next interrupt
     asm volatile("sti");
 
-     // Simple yield function: halt the CPU until the next interrupt
+    // Simple yield function: halt the CPU until the next interrupt
     asm volatile("hlt");
 }
 
@@ -59,7 +54,8 @@ void sleep_interrupt(uint32_t milliseconds)
     }
 }
 
-void pit_sleep(uint32_t milliseconds) {
+void pit_sleep(uint32_t milliseconds)
+{
     sleep_interrupt(milliseconds);
 }
 

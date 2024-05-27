@@ -18,6 +18,7 @@
         "idt.h": "c",
         "common.h": "c",
         "pit.h": "c",
-        "isr.h": "c"
+        "isr.h": "c",
+        "string.h": "c"
     }
 }

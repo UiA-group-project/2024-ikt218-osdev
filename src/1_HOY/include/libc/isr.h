@@ -1,8 +1,15 @@
-#include <libc/stdint.h>
 
 #ifndef ISR_H
 #define ISR_H
 
+#include "libc/stdint.h"
+#include "libc/stdbool.h"
+#include "libc/stdio.h"
+#include "libc/string.h"
+#include "libc/gdt.h"
+#include "libc/idt.h"
+#include "libc/monitor.h"
+#include "libc/common.h"
 typedef struct registers
 {
    uint32_t ds;                                     // Data segment selector
