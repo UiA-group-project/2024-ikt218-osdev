@@ -1,6 +1,9 @@
 #include <libc/pit.h>
 #include <libc/common.h>
 #include <libc/isr.h>
+#include <libc/stdio.h>
+#include <libc/song.h>
+#include <libc/frequencies.h>
 
 // Reference: http://www.jamesmolloy.co.uk/tutorial_html/5.-IRQs%20and%20the%20PIT.html
 
@@ -51,6 +54,10 @@ void sleep_interrupt(uint32_t milliseconds)
         // Yield control by halting the CPU until the next interrupt
         yield();
     }
+}
+
+void pit_sleep(uint32_t milliseconds) {
+    sleep_interrupt(milliseconds);
 }
 
 // Initialize the PIT (Programmable Interval Timer)

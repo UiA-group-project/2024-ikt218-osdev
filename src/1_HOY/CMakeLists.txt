@@ -74,6 +74,7 @@ add_executable(uiaos-kernel
 	src/memutils.c
 	src/memory.c
 	src/pit.c
+	src/SongPlayer.c
 )
 
 # Include directories for the kernel target

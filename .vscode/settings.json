@@ -17,6 +17,7 @@
         "limits.h": "c",
         "idt.h": "c",
         "common.h": "c",
-        "pit.h": "c"
+        "pit.h": "c",
+        "isr.h": "c"
     }
 }

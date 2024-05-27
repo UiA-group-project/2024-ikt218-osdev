@@ -27,6 +27,7 @@
 void init_pit();
 void sleep_interrupt(uint32_t milliseconds);
 void sleep_busy(uint32_t milliseconds);
+void pit_sleep(uint32_t milliseconds);
 void timer_callback(registers_t regs);
 
 #endif
