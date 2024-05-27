@@ -1,6 +1,6 @@
 {
-    "cmake.buildDirectory": "${workspaceFolder}/build/1_HOY",
-    "cmake.sourceDirectory": "${workspaceFolder}/src/1_HOY",
+    "cmake.buildDirectory": "${workspaceFolder}/build/group_name",
+    "cmake.sourceDirectory": "${workspaceFolder}/src/group_name",
     "C_Cpp.errorSquiggles": "disabled",
     "files.associations": {
         "cstddef": "cpp",
@@ -14,11 +14,7 @@
         "multiboot2.h": "c",
         "interrupts.h": "c",
         "memory.h": "c",
-        "limits.h": "c",
-        "idt.h": "c",
-        "common.h": "c",
-        "pit.h": "c",
-        "isr.h": "c",
-        "string.h": "c"
+        "limits.h": "c"
     }
+
 }
