@@ -41,6 +41,9 @@ void sleep_busy(uint32_t milliseconds)
 void yield()
 {
     // Simple yield function: halt the CPU until the next interrupt
+    asm volatile("sti");
+
+     // Simple yield function: halt the CPU until the next interrupt
     asm volatile("hlt");
 }
 
